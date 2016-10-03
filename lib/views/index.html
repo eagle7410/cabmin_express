@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="HandheldFriendly" content="true"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>Cabmin - {{ title }}</title>
+
+	<style type="text/css" >
+		@import url("{{ staticUrl }}/css/style.css");
+		@import url("{{ staticUrl }}/css/sweet-alert.css");
+	</style>
+
+	{% for item in css %}
+		<style type="text/css" >@import url("{{ item }}");</style>
+	{% endfor %}
+
+	<!--[if lt IE 9]>
+		<script src="{{ staticUrl }}/js/css3-mediaqueries.js"></script>
+		<script src="{{ staticUrl }}/js/html5shiv.js"></script>
+	<![endif]-->
+	<script type="text/javascript"> window.baseUrl="{{ baseUrl }}"; window.staticUrl="{{ staticUrl }}"; </script>
+	<script src="{{ staticUrl }}/js/jquery-2.1.1.min.js"></script>
+	<script src="{{ staticUrl }}/js/sweet-alert.min.js"></script>
+	<script src="{{ staticUrl }}/js/jquery.checkbox.js"></script>
+	<script src="{{ staticUrl }}/js/common.js"></script>
+
+	{% for item in js %}
+		 <script src="{{ item }}"></script>
+	{% endfor %}
+
+	<link rel="icon" type="image/ico" href="{{ staticUrl }}/favicon.ico">
+
+</head>
+<body>
+	<header class="noise">
+		<div class="body-max">
+			<div class="nav-button" title="Menu"></div>
+			<a href="{{ baseUrl }}" class="logo">
+			<h1 title="# Cabmin"><span class="grid"># </span><b>Cab</b>min</h1>
+			<small>Admin area for <b>{{ title }}</b></small>
+			</a>
+
+			<div class="btn-group right">
+				{% if modules.profile %}<a class="btn btn-primary" href="{{ baseUrl }}/profile">{% else %}<span class="btn btn-primary">{% endif %}
+					<i class="fa fa-user fa-fw "></i> {% if not noAuth %}{{ user.login }}{% else %}User{% endif %}
+				{% if modules.profile %}</a>{% else %}</span>{% endif %}
+
+				<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+				<span class="fa fa-caret-down"></span></a>
+				<ul class="dropdown-menu">
+					{% for item in menu %}
+						{% if item.title and item.showInMenu and item.dropmenu %}
+							{% if item.topDivider %}<li class="divider"></li>{% endif %}
+							<li><a href="{{ item.url }}">{{ item.title }}   {% if item.count %}<span>{{ item.count }}</span>{% endif %}</a></li>
+							{% if item.bottomDivider %}<li class="divider"></li>{% endif %}
+						{% endif %}
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</header>
+	<main class="body-max">
+		<aside class="scrollable unselectable stopscroll">
+			<nav>
+				{% for submenu in submenus %}
+
+					{% for item in submenu.items %}
+						{% if loop.first %}
+							<a class="submenu" href="#">
+								{{ item.submenu }}
+								<span class="counters"></span>
+								<span class="fa fa-caret-{% if submenu.open %}up{% else%}down{% endif %}"></span>
+							</a>
+							<div class="submenuBody {% if submenu.open %}open{% endif %}">
+						{% endif %}
+
+						<a class="{{ item.route }} {% if item.active %}active{% endif %}" href="{{ item.url }}">{{ item.title }} {% if item.count %}<span>{{ item.count }}</span>{% endif %}</span>  {% if item.note %} <small>{{ item.note }}</small>{% endif %}</a>
+
+						{% if loop.last %}
+							</div>
+						{% endif %}
+
+					{% endfor %}
+					{% if loop.last %}
+						<hr />
+					{% endif %}
+
+				{% endfor %}
+
+				{% for item in menu %}
+					{% if item.title and item.showInMenu and not item.dropmenu %}
+						<a class="{{ item.route }} {% if item.active %}active{% endif %}" href="{{ item.url }}">{{ item.title }}   {% if item.count %}<span>{{ item.count }}</span>{% endif %}  {% if item.note %} <small>{{ item.note }}</small>{% endif %}</a>
+					{% endif %}
+				{% endfor %}
+			</nav>
+		</aside>
+		<div class="asideBottom stopscroll"></div>
+		<article>
+			<div>
+				{% if page.title and page.showTitle %}
+					<h1>{{ page.title }}</h1>
+					{% if page.tabs %}
+					<nav class="tabs">
+						{% for item in page.tabs %}<a {% if item.note %}title="{{ item.note }}"{% endif %} href="?tab={% if item.locked %}default{% else %}{{ loop.key }}{% endif %}" class="{% if loop.key === page.activeTab %}active{% endif %} {% if item.locked %}locked{% endif %}" >
+								<span {% if item.class %}class="{{ item.class }}"{% endif %} {% if item.id %}id="{{ item.id }}"{% endif %}>{{ item.title }}</span>
+						</a>{% endfor %}
+					</nav>
+					{% endif %}
+				{% endif %}
+				{{ content }}
+			</div>
+		</article>
+	</main>
+	<footer></footer>
+</body>
+</html>
