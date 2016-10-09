@@ -1,14 +1,13 @@
 # Cabmin
-Simple control panel for [Node.js](http://nodejs.org) based on [OrangeBox](https://github.com/mirrr/orangebox) 
+Simple control panel for [Node.js](http://nodejs.org) based on express
 ![Cabmin screenshot](http://msrv.su/files/screen.png)
 ![Cabmin screenshot 2](http://msrv.su/files/screen2.png) 
-Lightweight  web application framework on clusters with file server.
-   
+
     
 
 ## How To Install   
 ```bash
-npm install cabmin
+npm install cabmin_express --save
 ```
 
    
@@ -17,33 +16,25 @@ npm install cabmin
 ## Getting Started
 
 ```js
-var app    = require('orangebox').app();
-var cabmin = require('cabmin').init({
-    title    : 'mysite',
-    mainPage : '/news',
-    path     : __dirname + '/controllers',
-    views    : __dirname + '/views',
-    users    : {
-        admin: {
-            userpic: 17,
-            hash:  '9sg87sf68.....' //password hash 
-        }
-    }
+var express = require('express');
+var app = express();
+var cabmin = require('cabmin_express');
+
+cabmin.init(express, app, {
+	require : { logger : true },
+	users : {tds : { password : 'fack', groups: 'req' } }
+}, function (e) {
+
+	if (e) {
+		return console.log('ERR:', e);
+	}
+
+	var port = process.env.port || 3000;
+	app.listen(port, function () {
+		console.log(`Example app listening on port ${port}!`);
+	});
 });
 
-app.use(cabmin);
-
-app.get('/', function (req, res) {
-  res.send('This is site frontend');
-});
-
-app.listen(8080);
-```
-   
-*For hash generation you can use script:*
-```js
-var cabmin = require('cabmin');
-console.log(cabmin.hash('password123'));
 ```
 
 ## Create section in cabmin
@@ -138,18 +129,10 @@ Coming soon...
    
 ## People
 
-Author and developer is [Oleksiy Chechel](https://github.com/mirrr), and developer [Igor Stcherbina](https://github.com/eagle7410)    
+Developer is [Igor Stcherbina](https://github.com/eagle7410)
    
 
 
 ## License
    
-MIT License   
-   
-Copyright (C) 2014 Oleksiy Chechel (alex.mirrr@gmail.com)   
-   
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:   
-   
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.   
-   
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+MIT License

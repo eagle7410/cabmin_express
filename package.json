@@ -1,6 +1,6 @@
 {
   "name": "cabmin_express",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "This cabmin for nodeJs express",
   "repository": {
     "type": "git",
@@ -41,5 +41,6 @@
     "grunt-contrib-cssmin": "^1.0.1",
     "grunt-contrib-htmlmin": "^2.0.0",
     "grunt-contrib-uglify": "^2.0.0"
-  }
+  },
+  "_id": "cabmin_express@0.0.1"
 }
