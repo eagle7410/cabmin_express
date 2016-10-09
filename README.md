@@ -22,7 +22,7 @@ var cabmin = require('cabmin_express');
 
 cabmin.init(express, app, {
 	require : { logger : true },
-	users : {tds : { password : 'fack', groups: 'req' } }
+	users : {tds : { password : 'pass', groups: 'dev' } }
 }, function (e) {
 
 	if (e) {
