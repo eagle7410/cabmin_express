@@ -2,16 +2,25 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Cabmin - {% if page.title %}{{ page.title }}{% else %}{{ title }}{% endif %}</title>
-	<style type="text/css" >@import url("{{ staticUrl }}/css/style.css");</style>
-	<style type="text/css" >@import url("{{ staticUrl }}/css/auth.css");</style>
 	<script type="text/javascript"> window.baseUrl="{{ baseUrl }}"; window.staticUrl="{{ staticUrl }}"; </script>
-	<script src="{{ staticUrl }}/js/jquery-2.1.1.min.js"></script>
-	<script src="{{ staticUrl }}/js/jquery.checkbox.js"></script>
-	<script src="{{ staticUrl }}/js/common.js"></script>
+	{% if isProd %}
+		<style type="text/css" >@import url("{{ staticUrl }}/css/auth.min.css");</style>
+		<script src="{{ staticUrl }}/js/auth.min.js"></script>
+	{% else %}
+		<style type="text/css" >
+			@import url("{{ staticUrl }}/css/form.css");
+			@import url("{{ staticUrl }}/css/radio-checkbox.css");
+			@import url("{{ staticUrl }}/css/font-awesome.min.css");
+			@import url("{{ staticUrl }}/css/fonts.css");
+			@import url("{{ staticUrl }}/css/style.css");
+			@import url("{{ staticUrl }}/css/auth.css");
+		</style>
+		<script src="{{ staticUrl }}/js/jquery-2.1.1.min.js"></script>
+		<script src="{{ staticUrl }}/js/jquery.checkbox.js"></script>
+		<script src="{{ staticUrl }}/js/common.js"></script>
+	{% endif %}
 	<link rel="icon" type="image/ico" href="{{ staticUrl }}/favicon.ico">
-   <!--[if lt IE 9]>
-	  <script src="{{ staticUrl }}/js/html5shiv.js"></script>
-   <![endif]-->
+   <!--[if lt IE 9]><script src="{{ staticUrl }}/js/html5shiv.min.js"></script><![endif]-->
 </head>
 <body>
    <div class="auth-wrap">

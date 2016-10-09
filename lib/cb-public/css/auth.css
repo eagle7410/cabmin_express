@@ -72,9 +72,6 @@ header .logo>small {
 	font-size: 90%;
 	float: left;
 }
-.err {
-	color : red;
-}
 .e{
 	box-shadow:         1px 1px 13px rgba(0, 0, 0, 0.57);
 	transition: opacity 0.3s linear;
