@@ -7,7 +7,7 @@ var cabmin = require('./index');
 
 cabmin.init(express, app, {
 	require : { logger : true },
-	users : {tds : { password : 'fack', groups: 'req' } }
+	users : {tds : { password : 'pass', groups: 'dev' } }
 }, function (e) {
 
 	if (e) {
