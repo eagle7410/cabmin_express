@@ -10,9 +10,6 @@ Used swig and cahe him.
 npm install cabmin_express --save
 ```
 
-   
-
-
 ## Getting Started
 
 ```js
@@ -131,8 +128,6 @@ Coming soon...
 
 Developer is [Igor Stcherbina](https://github.com/eagle7410)
    
-
-
 ## License
    
 MIT License
